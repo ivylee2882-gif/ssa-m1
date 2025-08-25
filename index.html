@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMSF Regulatory Framework Learning Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .module-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .key-point {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .case-study {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .quiz-container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            background-color: var(--secondary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .chapter-nav {
+            position: sticky;
+            top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .chapter-nav ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .chapter-nav li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid transparent;
+        }
+        
+        .chapter-nav li.active {
+            border-left: 3px solid var(--secondary);
+            font-weight: bold;
+        }
+        
+        .chapter-nav a {
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .chapter-nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .content-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            width: 50%;
+            padding: 10px 40px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 20px;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-landmark me-2"></i>SMSF Learning Portal
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-book me-1"></i> Modules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-question-circle me-1"></i> Quizzes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-graduation-cap me-1"></i> Resources</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">SMSF Regulatory Framework</h1>
+            <p class="lead">Master the essentials of Self-Managed Superannuation Funds regulation</p>
+            <div class="progress mt-4" style="height: 10px; max-width: 500px; margin: 0 auto;">
+                <div class="progress-bar" style="width: 25%;">25%</div>
+            </div>
+            <p class="mt-2">Your progress: Module 1 of 4</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="chapter-nav">
+                    <h5><i class="fas fa-list-alt me-2"></i>Module Contents</h5>
+                    <ul>
+                        <li class="active"><a href="#overview">Overview & Learning Outcomes</a></li>
+                        <li><a href="#history">History of Superannuation</a></li>
+                        <li><a href="#legislation">Legislative Framework</a></li>
+                        <li><a href="#penalties">SMSF Penalty Regime</a></li>
+                        <li><a href="#purpose">Sole Purpose Test</a></li>
+                        <li><a href="#standards">Operating Standards</a></li>
+                        <li><a href="#advantages">Advantages & Disadvantages</a></li>
+                        <li><a href="#saf">Small APRA Funds</a></li>
+                        <li><a href="#quiz">Knowledge Check</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-lg-9">
+                <!-- Overview Section -->
+                <section id="overview" class="content-section">
+                    <h2 class="mb-4"><i class="fas fa-info-circle me-2"></i>Overview & Learning Outcomes</h2>
+                    <div class="key-point">
+                        <p><strong>Key Concept:</strong> SMSFs are regulated by the SIS Act and ITAA 97, and must comply with the sole purpose test to receive concessional tax treatment.</p>
+                    </div>
+                    
+                    <p>Understanding SMSFs requires knowledge of how different legislation interacts and how regulators interpret the law. The two key Acts are:</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card module-card">
+                                <div class="card-header">SIS Act 1993</div>
+                                <div class="card-body">
+                                    <p class="card-text">Governs prudential management and supervision of superannuation funds</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card module-card">
+                                <div class="card-header">ITAA 97</div>
+                                <div class="card-body">
+                                    <p class="card-text">Provides the tax regime applicable to all superannuation funds</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-4">Learning Outcomes</h4>
+                    <p>After completing this module, you should be able to:</p>
+                    <ul>
+                        <li>Explain significant events in the history of superannuation in Australia</li>
+                        <li>Identify key legislation governing SMSFs</li>
+                        <li>Define an SMSF according to SIS Act section 17A</li>
+                        <li>Discuss penalties for breaches of the SIS Act</li>
+                        <li>Evaluate advantages and disadvantages of SMSFs</li>
+                    </ul>
+                </section>
+
+                <!-- History Section -->
+                <section id="history" class="content-section">
+                    <h2 class="mb-4"><i class="fas fa-history me-2"></i>History of Superannuation in Australia</h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1909</h5>
+                                <p>Introduction of the Age Pension</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1983</h5>
+                                <p>Taxation of superannuation benefits introduced</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1986</h5>
+                                <p>Compulsory superannuation introduced into industrial awards</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1992</h5>
+                                <p>Superannuation Guarantee (SG) introduced</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1994</h5>
+                                <p>SIS Act introduced (effective 1 July 1994)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>1999</h5>
+                                <p>SMSFs defined in SIS Act, regulation transferred to ATO</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2007</h5>
+                                <p>'Better Super' reforms introduced</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2017</h5>
+                                <p>Transfer Balance Cap ($1.6M) introduced</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h5>2021</h5>
+                                <p>SMSF member limit increased from 4 to 6</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-4">
+                        <p><strong>Note:</strong> The SG rate is gradually increasing to reach 12% by 1 July 2025. As of 2024/25, it's 11.5%.</p>
+                    </div>
+                    
+                    <div class="case-study mt-4">
+                        <h5><i class="fas fa-book-open me-2"></i>Case Study: SMSF Growth</h5>
+                        <p>In June 1996, there were 100,447 small superannuation funds with total assets of $28 billion. By June 2023, there were around 610,000 SMSFs with over 1.1 million members, holding around $876 billion (approximately 25%) of total superannuation assets.</p>
+                    </div>
+                </section>
+
+                <!-- Legislation Section -->
+                <section id="legislation" class="content-section">
+                    <h2 class="mb-4"><i class="fas fa-gavel me-2"></i>Legislative Framework</h2>
+                    
+                    <p>SMSFs are trusts governed by:</p>
+                    <ul>
+                        <li>General trust law (common law)</li>
+                        <li>The fund's trust deed</li>
+                        <li>Statutory legislation (primarily SIS Act and ITAA 97)</li>
+                    </ul>
+                    
+                    <div class="key-point">
+                        <p><strong>Key Concept:</strong> Four characteristics determine whether a trust exists: trustees, trust property, beneficiaries, and trustee obligations.</p>
+                    </div>
+                    
+                    <h4 class="mt-4">Other Relevant Legislation</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Corporations Act 2001</li>
+                                <li>Superannuation Guarantee Act 1992</li>
+                                <li>Family Law Act 1975</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Social Security Act 1991</li>
+                                <li>Trustee Acts (state-based)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-4">Regulators & Dispute Resolution</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Body</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ATO</td>
+                                    <td>Primary regulator of SMSFs</td>
+                                </tr>
+                                <tr>
+                                    <td>APRA</td>
+                                    <td>Regulator of large funds and SAFs</td>
+                                </tr>
+                                <tr>
+                                    <td>ASIC</td>
+                                    <td>Regulates financial services and auditors</td>
+                                </tr>
+                                <tr>
+                                    <td>AFCA</td>
+                                    <td>Dispute resolution for financial complaints</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="case-study mt-4">
+                        <h5><i class="fas fa-book-open me-2"></i>Case Study: Licensing Requirements</h5>
+                        <p>Since 1 July 2016, accountants need to be licensed to provide SMSF advice. This includes recommending establishment or winding up of an SMSF, as these constitute financial product advice under the Corporations Act.</p>
+                    </div>
+                </section>
+
+                <!-- Quiz Section -->
+                <section id="quiz" class="content-section">
+                    <h2 class="mb-4"><i class="fas fa-question-circle me-2"></i>Knowledge Check</h2>
+                    
+                    <div class="quiz-container">
+                        <div id="quiz-progress" class="mb-3">
+                            <p>Question <span id="current-question">1</span> of <span id="total-questions">5</span></p>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 20%;">20%</div>
+                            </div>
+                        </div>
+                        
+                        <div id="quiz-content">
+                            <h4>What is the maximum number of members an SMSF can have as of 2021?</h4>
+                            
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="quizQuestion" id="option1">
+                                <label class="form-check-label" for="option1">4</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="quizQuestion" id="option2">
+                                <label class="form-check-label" for="option2">5</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="quizQuestion" id="option3">
+                                <label class="form-check-label" for="option3">6</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="quizQuestion" id="option4">
+                                <label class="form-check-label" for="option4">No limit</label>
+                            </div>
+                            
+                            <button class="btn btn-primary mt-3" onclick="checkAnswer()">Submit Answer</button>
+                        </div>
+                        
+                        <div id="quiz-feedback" class="mt-3" style="display: none;">
+                            <div class="alert alert-success">
+                                <strong>Correct!</strong> As of 1 July 2021, the definition of an SMSF was amended to allow up to six members.
+                            </div>
+                            <button class="btn btn-primary" onclick="nextQuestion()">Next Question</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>SMSF Learning Portal</h5>
+                    <p>Your comprehensive resource for mastering SMSF regulations</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Based on Module 1 - SMSF Regulatory Framework (4th Edition)</p>
+                    <p>© 2024 SMSF Association Limited</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple quiz functionality
+        function checkAnswer() {
+            // For demonstration, assume option3 (6 members) is correct
+            const correctOption = document.getElementById('option3');
+            const userSelection = document.querySelector('input[name="quizQuestion"]:checked');
+            
+            if (userSelection && userSelection.id === 'option3') {
+                document.getElementById('quiz-feedback').style.display = 'block';
+                document.getElementById('quiz-content').style.opacity = '0.5';
+            } else {
+                alert('Incorrect. Please try again.');
+            }
+        }
+        
+        function nextQuestion() {
+            alert('This is a demonstration. In a full implementation, this would load the next question.');
+        }
+        
+        // Update active chapter in sidebar on scroll
+        window.addEventListener('scroll', function() {
+            const chapters = document.querySelectorAll('.content-section');
+            const chapterNavLinks = document.querySelectorAll('.chapter-nav li');
+            
+            let currentChapter = '';
+            
+            chapters.forEach(chapter => {
+                const chapterTop = chapter.offsetTop;
+                if (window.scrollY >= chapterTop - 100) {
+                    currentChapter = chapter.getAttribute('id');
+                }
+            });
+            
+            chapterNavLinks.forEach(link => {
+                link.classList.remove('active');
+                const linkHref = link.querySelector('a').getAttribute('href').substring(1);
+                if (linkHref === currentChapter) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
